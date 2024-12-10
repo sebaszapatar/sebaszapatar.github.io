@@ -2,8 +2,27 @@
 <html>
 <head>
 <title>Cookie Test</title>
+<script>
+    window.onload = function () {
+    try {
+        document.cookie = "test=1";
+        const cookiesEnabled = document.cookie.includes("test=1");
+        // Enviar mensaje al origen padre
+        window.parent.postMessage(
+        { cookiesEnabled: cookiesEnabled },
+          "*" // Permitir cualquier origen (puedes limitarlo a tu dominio si deseas más seguridad)
+        );
+    } catch (error) {
+        // Si hay un error, notificar que las cookies están deshabilitadas
+        window.parent.postMessage(
+        { cookiesEnabled: false },
+        "*"
+        );
+    }
+    };
+</script>
 </head>
 <body>
-Test Page for Cookies
+Cookie Testing Page V2.0
 </body>
 </html>
