@@ -5,15 +5,17 @@
 <script>
     window.onload = function () {
     try {
-        document.cookie = "test=1";
-        const cookiesEnabled = document.cookie.includes("test=1");
-        // Enviar mensaje al origen padre
+        // Intentar escribir y leer una cookie
+        document.cookie = "test_cookie=1; SameSite=None; Secure";
+        const cookiesEnabled = document.cookie.includes("test_cookie=1");
+
+        // Enviar el resultado al padre
         window.parent.postMessage(
         { cookiesEnabled: cookiesEnabled },
-          "*" // Permitir cualquier origen (puedes limitarlo a tu dominio si deseas más seguridad)
+          "*" // Permitir cualquier origen (o especifica el tuyo para mayor seguridad)
         );
     } catch (error) {
-        // Si hay un error, notificar que las cookies están deshabilitadas
+        // Si falla, las cookies están bloqueadas
         window.parent.postMessage(
         { cookiesEnabled: false },
         "*"
@@ -23,6 +25,7 @@
 </script>
 </head>
 <body>
-Cookie Testing Page V2.0
+Testing Cookies V3.0
 </body>
 </html>
+
